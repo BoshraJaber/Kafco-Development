@@ -1,0 +1,688 @@
+/* customer login form */
+.login-sec {
+    width: 960px;
+    border-radius: 31px 125px 0 190px;
+    background-color: #02264C;
+    overflow: hidden;
+    margin: auto;
+    display: flex;
+    color: #fff;
+}
+
+.login-image {
+    width: 355px;
+}
+
+.login-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-info {
+    flex: 1;
+    padding: 50px 75px;
+}
+
+.login-info h4 {
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.login-info .form-group {
+    margin-bottom: 15px;
+}
+
+.login-info .form-group label {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-info input[type="text"],
+.login-info input[type="password"] {
+    border-radius: 10px;
+    padding: 10px;
+    min-height: 45px;
+    border: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.login-info input:focus-visible {
+    outline: 0;
+}
+
+.btn-login {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 11px;
+    background-color: #157633;
+    padding: 13px 10px;
+    border: 0;
+    min-width: 160px;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    background-color: #0fa73e;
+}
+
+.form-cb input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+}
+
+.form-cb label {
+    position: relative;
+    cursor: pointer;
+    margin-top: 15px;
+    display: inline-block;
+    font-size: 18px;
+}
+
+.form-cb label:before {
+    content: '';
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 2px solid #fff;
+    padding: 10px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.form-cb input:checked + label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 7px;
+    width: 6px;
+    height: 14px;
+    border: solid #02264c;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.form-cb input:checked + label:before {
+    background-color: #fff;
+}
+
+.form-cb label a {
+    color: #0A6E2E;
+}
+
+/* Custom css related to customer account related functionality */
+sidenav-sec {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.sidenav-info {
+    width: 340px;
+    flex: 0 0 auto;
+}
+
+.sidenav-user {
+    padding: 20px;
+    border-radius: 22px;
+    border-bottom-right-radius: 0;
+    background-color: #021D54;
+    color: #fff;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-img {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-info h5 {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-top: 0;
+    margin-bottom: 6px;
+}
+
+.user-info p {
+    font-size: 18px;
+    margin: 0;
+}
+
+.sidenav {
+    margin: 0;
+    padding: 20px;
+    padding-left: 25px;
+    background-color: #F6F9F6;
+    border-radius: 23px;
+    border-top-right-radius: 86px;
+    overflow: hidden;
+    border: 1px solid #C5D0C5;
+}
+
+.sidenav a {
+    display: flex;
+    gap: 15px;
+    color: black;
+    padding: 12px 10px;
+    text-decoration: none;
+    position: relative;
+    border-bottom: 1px solid #CBC3C3;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.sidenav a:last-child {
+    border-bottom: 0;
+}
+
+.sidenav a.active {
+    background-color: #f6f9f6;
+    color: #000;
+}
+
+.sidenav a::before {
+    content: "";
+    display: inline-block;
+    border: 18px solid transparent;
+    border-left: 10px solid #157633;
+    position: absolute;
+    left: -50px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    transition: all 0.2s ease;
+    opacity: 0;
+    width: 15px;
+    height: 35px;
+    box-sizing: border-box;
+}
+
+.sidenav a::after {
+    content: "";
+    display: inline-block;
+    background-color: #157633;
+    position: absolute;
+    left: -50px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 35px;
+    width: 5px;
+    transition: all 0.2s ease;
+    opacity: 0;
+}
+
+.sidenav a.active::before,
+.sidenav a:hover:not(.active)::before {
+    left: -20px;
+    transition: all 0.2s ease;
+    opacity: 1;
+}
+
+.sidenav a.active::after,
+.sidenav a:hover:not(.active)::after {
+    left: -25px;
+    transition: all 0.2s ease;
+    opacity: 1;
+}
+
+.sidenav a:hover:not(.active) {
+    background-color: #f6f9f6;
+    color: #000;
+}
+
+.sidenav-content {
+    width: 100%;
+}
+
+.table-title {
+    border-bottom: 1px solid #A6A5A5;
+    margin-bottom: 25px;
+}
+
+.table-title h3 {
+    font-size: 32px;
+    color: #012245;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 0px;
+    margin-bottom: 7px;
+}
+
+.table-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #A6A5A5;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.table-filters .form-group {
+    min-width: 20%;
+}
+
+
+.form-group label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.form-group .form-control {
+    min-height: 50px;
+    border: 1px solid #B4B0B0;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-green {
+    border-radius: 11px;
+    background-color: #157633;
+    color: #fff;
+    min-height: 50px;
+    padding: 10px;
+    border: 1px solid #157633;
+    font-size: 18px;
+    font-weight: 600;
+    min-width: 15%;
+}
+
+.btn-green:hover {
+    background-color: #021D54;
+    border-color: #021D54;
+    color: #fff;
+    cursor: pointer;
+}
+
+.table-filters .btn-green {
+    margin-top: 10px;
+}
+
+.table-filters .btn-cf {
+    border-radius: 11px;
+    background-color: transparent;
+    color: #012245;
+    min-height: 50px;
+    padding: 10px;
+    border: 1px solid transparent;
+    font-size: 18px;
+    font-weight: 600;
+    min-width: 15%;
+    margin-top: 10px;
+    text-decoration: underline;
+}
+
+.table-filters .btn-cf img {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.table-filters .btn-cf:hover {
+    color: #ED1C24;
+    cursor: pointer;
+}
+
+.table-filters .btn-cf:hover img {
+    filter: invert(22%) sepia(74%) saturate(4898%) hue-rotate(347deg) brightness(92%) contrast(102%);
+}
+
+.table-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.tbl-info-c {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tbl-info-c p {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.tbl-info-c p label {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 2px;
+    font-weight: 300;
+}
+
+
+.table-responsive {
+    overflow: auto;
+    border: 1px solid #CBC3C3;
+    border-radius: 20px;
+    background-color: #fff;
+    font-size: 18px;
+}
+
+.table-responsive table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-responsive table td,
+.table-responsive table th {
+    /* border: 1px solid #ddd; */
+    padding: 1.2rem 0.75rem;
+}
+
+.table-responsive table tr:nth-child(even) {
+    background-color: #F6F9F6;
+}
+
+.table-responsive table tr:hover {
+    background-color: #ddd;
+}
+
+.table-responsive table th {
+    padding: 1rem 0.75rem;
+    text-align: left;
+    background-color: #F1E9E9;
+    color: #000;
+}
+
+.table-responsive table td {
+    border-bottom: 1px solid #CBC3C3;
+}
+
+.table-responsive table tr:last-child td {
+    border-bottom: 0;
+}
+
+.table-bal-info {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: right;
+    padding: 5px 25px;
+    border-bottom: 1px solid #A6A5A5;
+    margin-bottom: 30px;
+}
+
+.table-bal-info p span {
+    margin-left: 20px;
+}
+
+.table-head {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.btn-outline-green {
+    border-radius: 10px;
+    background-color: #fff;
+    color: #000;
+    padding: 10px 18px;
+    border: 1px solid #157633;
+    font-size: 18px;
+    font-weight: 300;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-outline-green:hover {
+    background-color: #157633;
+    border-color: #157633;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-outline-green:hover img {
+    filter: brightness(0) invert(1);
+}
+
+.form-sec {
+    padding: 25px;
+    border: 1px solid #CBC3C3;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.form-sec p {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 22px;
+}
+
+.row-flex {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px
+}
+
+.col-4,
+.col-12 {
+    padding-right: 15px;
+    padding-left: 15px;
+    max-width: 33.333333%;
+    flex: 0 0 33.333333%;
+    box-sizing: border-box;
+}
+
+.col-12 {
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+.form-sec .btn {
+    min-width: 20%;
+}
+
+.form-info-sec {
+    border-radius: 12px;
+    border: 1px solid #B4B0B0;
+    padding: 15px;
+    background-color: #FBFBFB;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.form-info-sec p {
+    font-size: 18px;
+    margin: 0;
+}
+
+.page-margin {
+    margin: 5%;
+}
+
+.page-wrapper {
+    background-image: url('../images/pattern.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top right;
+    padding: 5%;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+
+
+@media(max-width: 992px) {
+
+    .login-sec {
+        width: 100%;
+    }
+
+    .login-image {
+        width: 250px;
+    }
+
+    .login-info {
+        padding: 4% 7%;
+    }
+
+    .form-cb label {
+        font-size: 16px;
+    }
+
+    /* Custom css related to customer account dashboard */
+    .sidenav-sec {
+        flex-wrap: wrap;
+    }
+
+    .sidenav-info {
+        width: 100%;
+    }
+
+    .sidenav a {
+        text-align: center;
+        float: none;
+    }
+
+    .table-filters {
+        gap: 0 20px;
+    }
+
+    .table-filters .form-group {
+        min-width: 48%;
+    }
+
+    .table-info {
+        gap: 15px 30px;
+    }
+
+    .col-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    
+    .form-sec .btn {
+        min-width: 30%;
+    }
+}
+
+@media(max-width: 480px) {
+
+    .login-sec {
+        flex-wrap: wrap;
+        border-radius: 31px 120px 0 70px;
+    }
+
+    .login-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .login-info {
+        padding: 20px;
+        padding-bottom: 50px;
+    }
+
+    .form-cb label {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .form-cb label:before {
+        padding: 8px;
+    }
+
+    .form-cb input:checked + label:after {
+        width: 4px;
+        height: 12px;
+        top: 3px;
+        left: 6px;
+    }
+
+    /* Custom css related to account dashboard */
+    .table-title h3 {
+        font-size: 23px;
+    }
+
+    .table-filters .form-group {
+        width: 100%;
+    }
+
+    .tbl-info-c {
+        width: 100%;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .table-filters .btn {
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .tbl-info-c p {
+        font-size: 20px;
+    }
+
+    .table-bal-info {
+        font-size: 18px;
+        padding: 5px;
+    }
+
+    .table-bal-info p span {
+        margin-left: 10px;
+    }
+
+    .col-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .form-sec p {
+        font-size: 20px;
+    }
+
+    .form-sec p {
+        font-size: 18px;
+    }
+
+    .form-sec .btn {
+        min-width: 100%;
+    }
+
+    .table-filters .btn {
+        min-width: 45%;
+    }
+
+}
