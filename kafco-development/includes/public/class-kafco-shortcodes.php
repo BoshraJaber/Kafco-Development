@@ -36,7 +36,7 @@ class Kafco_Shortcodes {
 
     $dashboard_url = get_the_permalink(pll_get_post(get_page_by_path( 'contract-summary' )->ID));
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_form_submit'])) {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_form_submit'])) {
         $username = sanitize_text_field($_POST['log']);
         $password = sanitize_text_field($_POST['pwd']);
         $terms_agreed = isset($_POST['tc']) ? true : false;
@@ -61,7 +61,7 @@ class Kafco_Shortcodes {
             }
         }
     }    
-    if(!is_user_logged_in()) {
+   if(!is_user_logged_in()) {
  	 ?> 
      <div class="page-wrapper">
         <div class="login-sec">
@@ -76,7 +76,7 @@ class Kafco_Shortcodes {
                 <form id="custom-login-form" method="post" action="">
                     <div class="form-group">
                         <label><?php echo kafco_plugin_str_display('Username'); ?></label>
-                        <input type="text" name="log" id="user_login" value="<?php echo isset($_POST['log']) ? esc_attr($_POST['log']) : ''; ?>" required>
+                        <input type="text" name="log" id="user_login" value="" required>
                     </div>
                     <div class="form-group">
                         <label><?php echo kafco_plugin_str_display('Password'); ?></label>   
@@ -97,8 +97,10 @@ class Kafco_Shortcodes {
         </div>
      </div>
      <?php } else { 
-        wp_redirect($dashboard_url);
-        exit;
+
+        if( !isset( $_GET['action'] ) || $_GET['action'] != 'edit' ) {
+            wp_redirect($dashboard_url);
+        } 
       ?> 
         
      <?php }
@@ -534,10 +536,259 @@ class Kafco_Shortcodes {
         return ob_get_clean();
      }
 
+     /**
+	 * Shortcode displaying Complaints list
+	 *
+	 * @package Kafco
+	 * @since 1.0.0
+	 */
+    public function kapco_fuel_upliftment_summary() {
+
+        ob_start(); ?>
+            <div class="page-wrapper">
+            <div class="sidenav-sec">
+                <?php 
+                    include_once( KAFCO_INC_DIR.'/public/class-kafco-common-sidebar.php' );
+                        if (class_exists('Kafco_Sidebar')) {
+                            $kafco_sidebar = new Kafco_Sidebar();
+                            $kafco_sidebar->kafco_common_sidebar();
+                        } ?>
+                    <div class="sidenav-content">
+                        <div class="table-title">
+                            <h3>Fuel Uplift Summary</h3>
+                        </div>
+                        <div class="table-filters">
+                            <div class="form-group">
+                                <label>Date from</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Date to</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Currency</label>
+                                <select class="form-control">
+                                    <option></option>
+                                    <option></option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-green">Apply Filter</button>
+                            <button type="button" class="btn btn-cf"><img src="<?php echo KAFCO_INC_URL . '/images/undo-arrow.svg' ?>">Clear Filter</button>
+                        </div>
+                        <div class="table-info">
+                            <div class="tbl-info-c">
+                            <img src="<?php echo KAFCO_INC_URL . '/images/ti-1.svg' ?>">
+                                <p><label>Customer</label> Yousef Ali Syed</p>
+                            </div>
+                            <div class="tbl-info-c">
+                               <img src="<?php echo KAFCO_INC_URL . '/images/ti-4.svg' ?>">
+                                <p><label>Statement Date from</label> 01/01/2023</p>
+                            </div>
+                            <div class="tbl-info-c">
+                                <img src="<?php echo KAFCO_INC_URL . '/images/ti-4.svg' ?>">
+                                <p><label>Statement From Until</label> 07/01/2023</p>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <tr>
+                                    <th>Date of Uplift</th>
+                                    <th>Fuel Ticket No.</th>
+                                    <th>Quantity(Ltrs)</th>
+                                    <th>Flight#</th>
+                                    <th>Aircraft Reg.#</th>
+
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>26/06/23-313</td>
+                                    <td>16-jul-23</td>
+                                    <td>NBK Bank Transfer</td>
+                                    <td>KWD</td>
+
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>26/06/23-313</td>
+                                    <td>16-jul-23</td>
+                                    <td>NBK Bank Transfer</td>
+                                    <td>KWD</td>
+
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>26/06/23-313</td>
+                                    <td>16-jul-23</td>
+                                    <td>NBK Bank Transfer</td>
+                                    <td>KWD</td>
+
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>26/06/23-313</td>
+                                    <td>16-jul-23</td>
+                                    <td>NBK Bank Transfer</td>
+                                    <td>KWD</td>
+
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-outline-green"><img src="<?php echo KAFCO_INC_URL . '/images/pdf.svg' ?>"> Download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    /**
+	 * Shortcode to display fuel prices
+	 *
+	 * @package Kafco
+	 * @since 1.0.0
+	 */
+
+    public function kapco_fuel_prices_details() {
+
+        ob_start(); ?>
+             <div class="page-wrapper">
+                <div class="sidenav-sec">
+                    <?php 
+                        include_once( KAFCO_INC_DIR.'/public/class-kafco-common-sidebar.php' );
+                            if (class_exists('Kafco_Sidebar')) {
+                                $kafco_sidebar = new Kafco_Sidebar();
+                                $kafco_sidebar->kafco_common_sidebar();
+                            } ?>
+                        <div class="sidenav-content">
+                            <div class="table-title">
+                                <h3>Fuel Prices</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <tr>
+                                        <th>Fuel Price Effective Date (dd/mm/yyyy)</th>
+                                        <th>Valid Until Date (dd/mm/yyyy)</th>
+                                        <th>Fils/Ltr</th>
+                                        <th>USC/USG</th>
+                                        <th>Exchange Rate</th>
+                                    </tr>
+                                    <tr>
+                                        <td>26-02-2023</td>
+                                        <td>KWD/USD</td>
+                                        <td>0/7/15/21/30</td>
+                                        <td>Open / BG / Deposit /Prepayment</td>
+                                        <td>Entitle as per contract /No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>26-02-2023</td>
+                                        <td>KWD/USD</td>
+                                        <td>0/7/15/21/30</td>
+                                        <td>Open / BG / Deposit /Prepayment</td>
+                                        <td>Entitle as per contract /No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>26-02-2023</td>
+                                        <td>KWD/USD</td>
+                                        <td>0/7/15/21/30</td>
+                                        <td>Open / BG / Deposit /Prepayment</td>
+                                        <td>Entitle as per contract /No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>26-02-2023</td>
+                                        <td>KWD/USD</td>
+                                        <td>0/7/15/21/30</td>
+                                        <td>Open / BG / Deposit /Prepayment</td>
+                                        <td>Entitle as per contract /No</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="text-right">
+                                <button type="button" class="btn btn-outline-green"><img src="<?php echo KAFCO_INC_URL . '/images/pdf.svg' ?>"> Download</button>
+                            </div>
+                        </div>   
+                </div>
+            </div>
+        
+        <?php
+        return ob_get_clean();
+
+    }
+
+     /**
+	 * Shortcode to display status
+	 *
+	 * @package Kafco
+	 * @since 1.0.0
+	*/
+
+    public function kapco_fuel_status_details() {
+        ob_start(); ?>
+        <div class="page-wrapper">
+                <div class="sidenav-sec">
+                    <?php 
+                        include_once( KAFCO_INC_DIR.'/public/class-kafco-common-sidebar.php' );
+                            if (class_exists('Kafco_Sidebar')) {
+                                $kafco_sidebar = new Kafco_Sidebar();
+                                $kafco_sidebar->kafco_common_sidebar();
+                            } ?>
+                        <div class="sidenav-content">
+                            <div class="table-title">
+                                 <h3>Status</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <tr>
+                                        <th>Invoice #</th>
+                                        <th>Date of Issue</th>
+                                        <th>Due Date</th>
+                                        <th>Invoice Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    <tr>
+                                        <td>26-02-2023</td>
+                                        <td>KWD/USD</td>
+                                        <td>0/7/15/21/30</td>
+                                        <td>Open / BG / Deposit /Prepayment</td>
+                                        <td>Entitle as per contract /No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>26-02-2023</td>
+                                        <td>KWD/USD</td>
+                                        <td>0/7/15/21/30</td>
+                                        <td>Open / BG / Deposit /Prepayment</td>
+                                        <td>Entitle as per contract /No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>26-02-2023</td>
+                                        <td>KWD/USD</td>
+                                        <td>0/7/15/21/30</td>
+                                        <td>Open / BG / Deposit /Prepayment</td>
+                                        <td>Entitle as per contract /No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>26-02-2023</td>
+                                        <td>KWD/USD</td>
+                                        <td>0/7/15/21/30</td>
+                                        <td>Open / BG / Deposit /Prepayment</td>
+                                        <td>Entitle as per contract /No</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>   
+                </div>
+            </div>
+        <?php
+        return ob_get_clean();
+    }
+
 	/**
 	 * Adding Hooks
 	 *
 	 * @package Kafco
+     * 
 	 * @since 1.0.0
 	 */ 
 	function add_hooks(){
@@ -546,6 +797,8 @@ class Kafco_Shortcodes {
         add_shortcode('kafco_statement_account',array($this,'kafco_statement_of_account'));
         add_shortcode('kafco_missing_fuel_ticket',array($this,'kafco_missing_fuel_ticket_requests'));
         add_shortcode('kafco_complaints',array($this,'kafco_complaints_list'));
+        add_shortcode('kafco_fuel_upliftment',array($this,'kapco_fuel_upliftment_summary'));
+        add_shortcode('kafco_fuel_prices',array($this,'kapco_fuel_prices_details'));
+        add_shortcode('kafco_fuel_status',array($this,'kapco_fuel_status_details'));
 	}
 }
-?>
