@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: New Kafco Development
+Plugin Name: Kafco Development
 Plugin URI:http://www.kafco.com/
 Description: Custom development and enhancements of new features for Kafco
 Version: 1.0.0
-Author: New Kafco
+Author: Kafco
 Author URI: http://www.kafco.com/
 */
 
@@ -114,20 +114,92 @@ $kafco_shortcodes->add_hooks();
 if (!defined('ABSPATH')) exit;
 
 // Custom Blocks
+// function custom_popup_block_assets() {
+//     // Register the block editor script.
+//     wp_register_script(
+//         'custom-popup-block-editor',
+//         plugins_url('block.js', __FILE__),
+//         array('wp-blocks', 'wp-element', 'wp-editor'),
+//         filemtime(plugin_dir_path(__FILE__) . 'block.js')
+//     );
 
-// Define things
-define( 'ESSENTIAL_BLOCKS_FILE', __FILE__ );
+//     // Register the block editor styles.
+//     wp_register_style(
+//         'custom-popup-block-editor-style',
+//         plugins_url('editor.css', __FILE__),
+//         array('wp-edit-blocks'),
+//         filemtime(plugin_dir_path(__FILE__) . 'editor.css')
+//     );
 
-require_once __DIR__ . '/autoload.php';
+//     // Register the front-end styles.
+//     wp_register_style(
+//         'custom-popup-block-style',
+//         plugins_url('style.css', __FILE__),
+//         array(),
+//         filemtime(plugin_dir_path(__FILE__) . 'style.css')
+//     );
 
-/**
- * Dependencies (Made by WPDeveloper)
- */
-require_once __DIR__ . '/lib/style-handler/style-handler.php';
+//     // Register the block type with the above scripts and styles.
+//     register_block_type('custom/popup-block', array(
+//         'editor_script' => 'custom-popup-block-editor',
+//         'editor_style'  => 'custom-popup-block-editor-style',
+//         'style'         => 'custom-popup-block-style',
+//     ));
+// }
+// add_action('init', 'custom_popup_block_assets');
 
-function wpdev_essential_blocks()
-{
-    return EssentialBlocks\Plugin::get_instance();
+
+// function custom_popup_block_frontend_script() {
+//     wp_enqueue_script(
+//         'custom-popup-block-frontend',
+//         plugins_url('frontend.js', __FILE__),
+//         array('jquery'),
+//         filemtime(plugin_dir_path(__FILE__) . 'frontend.js'),
+//         true
+//     );
+// }
+// add_action('wp_enqueue_scripts', 'custom_popup_block_frontend_script');
+
+function enqueue_custom_popup_block_assets() {
+    // Register the block editor script.
+    wp_register_script(
+        'custom-popup-block-editor-script',
+        plugins_url('blocks/popup/block.js', __FILE__),
+        array('wp-blocks', 'wp-element', 'wp-editor'),
+        filemtime(plugin_dir_path(__FILE__) . 'blocks/popup/block.js')
+    );
+
+    // Register the block editor styles.
+    wp_register_style(
+        'custom-popup-block-editor-style',
+        plugins_url('blocks/popup/editor.css', __FILE__),
+        array('wp-edit-blocks'),
+        filemtime(plugin_dir_path(__FILE__) . 'blocks/popup/editor.css')
+    );
+
+    // Register the frontend script.
+    wp_register_script(
+        'custom-popup-block-frontend-script',
+        plugins_url('blocks/popup/frontend.js', __FILE__),
+        array('wp-element'),
+        filemtime(plugin_dir_path(__FILE__) . 'blocks/popup/frontend.js'),
+        true
+    );
+
+    // Register the frontend styles.
+    wp_register_style(
+        'custom-popup-block-frontend-style',
+        plugins_url('blocks/popup/style.css', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . 'blocks/popup/style.css')
+    );
+
+    // Register the block type.
+    register_block_type('custom/popup-block', array(
+        'editor_script' => 'custom-popup-block-editor-script',
+        'editor_style'  => 'custom-popup-block-editor-style',
+        'script'        => 'custom-popup-block-frontend-script',
+        'style'         => 'custom-popup-block-frontend-style',
+    ));
 }
-
-wpdev_essential_blocks();
+add_action('init', 'enqueue_custom_popup_block_assets');
