@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Kafco Development
+Plugin Name: New Kafco Development
 Plugin URI:http://www.kafco.com/
 Description: Custom development and enhancements of new features for Kafco
 Version: 1.0.0
-Author: Kafco
+Author: New Kafco
 Author URI: http://www.kafco.com/
 */
 
