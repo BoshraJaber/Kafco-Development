@@ -108,3 +108,88 @@ $kafco_shortcodes->add_hooks();
 include_once( KAFCO_INC_DIR.'/public/class-kafco-shortcodes.php' );
 $kafco_shortcodes = new Kafco_Shortcodes();
 $kafco_shortcodes->add_hooks();
+
+
+// Exit if accessed directly.
+if (!defined('ABSPATH')) exit;
+
+// Custom Blocks
+// function custom_popup_block_assets() {
+//     // Register the block editor script.
+//     wp_register_script(
+//         'custom-popup-block-editor',
+//         plugins_url('block.js', __FILE__),
+//         array('wp-blocks', 'wp-element', 'wp-editor'),
+//         filemtime(plugin_dir_path(__FILE__) . 'block.js')
+//     );
+
+//     // Register the block editor styles.
+//     wp_register_style(
+//         'custom-popup-block-editor-style',
+//         plugins_url('editor.css', __FILE__),
+//         array('wp-edit-blocks'),
+//         filemtime(plugin_dir_path(__FILE__) . 'editor.css')
+//     );
+
+//     // Register the front-end styles.
+//     wp_register_style(
+//         'custom-popup-block-style',
+//         plugins_url('style.css', __FILE__),
+//         array(),
+//         filemtime(plugin_dir_path(__FILE__) . 'style.css')
+//     );
+
+//     // Register the block type with the above scripts and styles.
+//     register_block_type('custom/popup-block', array(
+//         'editor_script' => 'custom-popup-block-editor',
+//         'editor_style'  => 'custom-popup-block-editor-style',
+//         'style'         => 'custom-popup-block-style',
+//     ));
+// }
+// add_action('init', 'custom_popup_block_assets');
+
+
+// function custom_popup_block_frontend_script() {
+//     wp_enqueue_script(
+//         'custom-popup-block-frontend',
+//         plugins_url('frontend.js', __FILE__),
+//         array('jquery'),
+//         filemtime(plugin_dir_path(__FILE__) . 'frontend.js'),
+//         true
+//     );
+// }
+// add_action('wp_enqueue_scripts', 'custom_popup_block_frontend_script');
+
+
+
+function enqueue_custom_popup_block_assets() {
+    wp_enqueue_script(
+        'custom-popup-block-editor-script',
+        plugins_url('blocks/popup/block.js', __FILE__),
+        array('wp-blocks', 'wp-element', 'wp-editor'),
+        filemtime(plugin_dir_path(__FILE__) . 'blocks/popup/block.js')
+    );
+
+    wp_enqueue_style(
+        'custom-popup-block-editor-style',
+        plugins_url('blocks/popup/editor.css', __FILE__),
+        array('wp-edit-blocks'),
+        filemtime(plugin_dir_path(__FILE__) . 'blocks/popup/editor.css')
+    );
+
+    wp_enqueue_script(
+        'custom-popup-block-frontend-script',
+        plugins_url('blocks/popup/frontend.js', __FILE__),
+        array('wp-element'),
+        filemtime(plugin_dir_path(__FILE__) . 'blocks/popup/frontend.js'),
+        true
+    );
+
+    wp_enqueue_style(
+        'custom-popup-block-frontend-style',
+        plugins_url('blocks/popup/style.css', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . 'blocks/popup/style.css')
+    );
+}
+add_action('enqueue_block_assets', 'enqueue_custom_popup_block_assets');

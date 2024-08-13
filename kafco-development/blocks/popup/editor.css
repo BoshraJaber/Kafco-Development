@@ -1,0 +1,22 @@
+.custom-popup-content {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.custom-popup-trigger {
+    padding: 10px 20px;
+    background-color: #0073aa;
+    color: white;
+    cursor: pointer;
+}
+
+.custom-popup-open .custom-popup-content {
+    display: block;
+}
