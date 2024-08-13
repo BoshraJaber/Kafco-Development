@@ -1,31 +1,47 @@
 const { registerBlockType } = wp.blocks;
-const { RichText } = wp.blockEditor;
+const { TextControl } = wp.components;
+const { useBlockProps, InspectorControls } = wp.blockEditor;
+const { Fragment } = wp.element;
 
 registerBlockType('custom/popup-block', {
     title: 'Popup Block',
     icon: 'smiley',
-    category: 'layout',
+    category: 'common',
     attributes: {
         content: {
             type: 'string',
-            source: 'html',
-            selector: 'p',
+            default: 'This is a popup!'
         },
     },
     edit({ attributes, setAttributes }) {
-        const { content } = attributes;
+        const blockProps = useBlockProps();
         return (
-            <RichText
-                tagName="p"
-                className="popup-content"
-                value={content}
-                onChange={(content) => setAttributes({ content })}
-                placeholder="Enter popup content..."
-            />
+            <Fragment>
+                <InspectorControls>
+                    <TextControl
+                        label="Popup Content"
+                        value={attributes.content}
+                        onChange={(newContent) => setAttributes({ content: newContent })}
+                    />
+                </InspectorControls>
+                <div {...blockProps}>
+                    <button className="custom-popup-trigger">Open Popup</button>
+                    <div className="custom-popup-content">
+                        {attributes.content}
+                    </div>
+                </div>
+            </Fragment>
         );
     },
     save({ attributes }) {
-        const { content } = attributes;
-        return <RichText.Content tagName="p" value={content} />;
+        const blockProps = useBlockProps.save();
+        return (
+            <div {...blockProps}>
+                <button className="custom-popup-trigger">Open Popup</button>
+                <div className="custom-popup-content">
+                    {attributes.content}
+                </div>
+            </div>
+        );
     },
 });
