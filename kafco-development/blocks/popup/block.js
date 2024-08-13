@@ -3,7 +3,7 @@ const { TextControl } = wp.components;
 const { useBlockProps, InspectorControls } = wp.blockEditor;
 const { Fragment } = wp.element;
 
-registerBlockType('custom/popup-block', {
+registerBlockType('custom/popup', {
     title: 'Popup Block',
     icon: 'smiley',
     category: 'common',
