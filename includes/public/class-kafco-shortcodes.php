@@ -196,7 +196,9 @@ class Kafco_Shortcodes {
 
      public function kafco_statement_of_account(){
 
-        ob_start(); ?>
+        ob_start();
+        $this->redirect_user_to_login();
+        ?>
         <div class="page-wrapper">
             <div class="sidenav-sec">
                 <?php 
@@ -375,7 +377,9 @@ class Kafco_Shortcodes {
 
      public function kafco_missing_fuel_ticket_requests(){
 
-        ob_start(); ?>
+        ob_start(); 
+        $this->redirect_user_to_login();
+        ?>
         <div class="page-wrapper">
             <div class="sidenav-sec">
                 <?php 
@@ -446,7 +450,8 @@ class Kafco_Shortcodes {
 	 */
 
      public function kafco_complaints_list(){
-        ob_start(); ?>
+        ob_start();
+        $this->redirect_user_to_login(); ?>
         <div class="page-wrapper">
             <div class="sidenav-sec">
                 <?php 
@@ -544,7 +549,9 @@ class Kafco_Shortcodes {
 	 */
     public function kapco_fuel_upliftment_summary() {
 
-        ob_start(); ?>
+        ob_start();
+        $this->redirect_user_to_login();
+        ?>
             <div class="page-wrapper">
             <div class="sidenav-sec">
                 <?php 
@@ -653,7 +660,9 @@ class Kafco_Shortcodes {
 
     public function kapco_fuel_prices_details() {
 
-        ob_start(); ?>
+        ob_start(); 
+        $this->redirect_user_to_login();
+        ?>
              <div class="page-wrapper">
                 <div class="sidenav-sec">
                     <?php 
@@ -725,7 +734,9 @@ class Kafco_Shortcodes {
 	*/
 
     public function kapco_fuel_status_details() {
-        ob_start(); ?>
+        ob_start();
+        $this->redirect_user_to_login();
+        ?>
         <div class="page-wrapper">
                 <div class="sidenav-sec">
                     <?php 
@@ -782,6 +793,14 @@ class Kafco_Shortcodes {
             </div>
         <?php
         return ob_get_clean();
+    }
+
+    public function redirect_user_to_login(){
+        $kafco_login_url = get_the_permalink(pll_get_post(get_page_by_path( 'customer-login' )->ID));
+        if(!is_user_logged_in()) {
+           wp_redirect($kafco_login_url);
+           exit;
+        } 
     }
 
 	/**
