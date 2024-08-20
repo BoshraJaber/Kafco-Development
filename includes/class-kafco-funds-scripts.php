@@ -41,7 +41,7 @@ class Kafco_Scripts {
 
 		wp_register_style('kafco-login-style', KAFCO_INC_URL . '/css/login-account.css');
 		wp_register_style('kafco-sidebar-style', KAFCO_INC_URL . '/css/SideNav.css');
-		if(is_page('customer-login') || is_page('contract-summary') || is_page('statement-account') || is_page('missing-fuel-ticket-request') || is_page('complaints')){
+		if(is_page('customer-login') || is_page('contract-summary') || is_page('statement-account') || is_page('missing-fuel-ticket-request') || is_page('complaints') || is_page('status') || is_page('fuel-uplift-summary') || is_page('fuel-prices')){
 			wp_enqueue_style('kafco-login-style');
 			wp_enqueue_style('kafco-sidebar-style');
 		}
