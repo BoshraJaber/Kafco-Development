@@ -809,7 +809,7 @@ class Kafco_Shortcodes {
                             } ?>
                         <div class="sidenav-content">
                             <div class="table-title">
-                                 <h3>Status</h3>
+                                 <h3>Satisfaction Survey</h3>
                             </div>
                             <?php echo do_shortcode('[qsm quiz=1]') ?>
                         </div>   

@@ -43,15 +43,6 @@ class Kafco_Scripts {
 		wp_register_style('kafco-sidebar-style', KAFCO_INC_URL . '/css/SideNav.css');	
 		wp_enqueue_style('kafco-login-style');
 		wp_enqueue_style('kafco-sidebar-style');
-		
-		//wp_register_script('arab-funds-public-script', ARAB_FUNDS_INC_URL . '/js/arab-custom-script.js',array('jquery'),rand());
-        //wp_enqueue_script('arab-funds-public-script');
-
-		
-        //$localize_scriptArgs = array();
-        //$localize_scriptArgs['ajaxurl'] = admin_url('admin-ajax.php', ( is_ssl() ? 'https' : 'http'));
-		//wp_localize_script('arab-funds-public-script', 'ArabFundsPublic', $localize_scriptArgs);
-
 	 }
 
 
