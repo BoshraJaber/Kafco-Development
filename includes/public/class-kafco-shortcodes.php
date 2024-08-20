@@ -795,6 +795,30 @@ class Kafco_Shortcodes {
         return ob_get_clean();
     }
 
+    public function kapco_satisfactory_survey() {
+        ob_start();
+        $this->redirect_user_to_login();
+        ?>
+        <div class="page-wrapper">
+                <div class="sidenav-sec">
+                    <?php 
+                        include_once( KAFCO_INC_DIR.'/public/class-kafco-common-sidebar.php' );
+                            if (class_exists('Kafco_Sidebar')) {
+                                $kafco_sidebar = new Kafco_Sidebar();
+                                $kafco_sidebar->kafco_common_sidebar();
+                            } ?>
+                        <div class="sidenav-content">
+                            <div class="table-title">
+                                 <h3>Status</h3>
+                            </div>
+                            <?php echo do_shortcode('[qsm quiz=1]') ?>
+                        </div>   
+                </div>
+            </div>
+        <?php
+        return ob_get_clean();
+    }
+
     public function redirect_user_to_login(){
         $kafco_login_url = get_the_permalink(pll_get_post(get_page_by_path( 'customer-login' )->ID));
         if(!is_user_logged_in()) {
@@ -819,5 +843,7 @@ class Kafco_Shortcodes {
         add_shortcode('kafco_fuel_upliftment',array($this,'kapco_fuel_upliftment_summary'));
         add_shortcode('kafco_fuel_prices',array($this,'kapco_fuel_prices_details'));
         add_shortcode('kafco_fuel_status',array($this,'kapco_fuel_status_details'));
+        add_shortcode('kapco_satisfactory_survey',array($this,'kapco_satisfactory_survey'));
+        
 	}
 }
