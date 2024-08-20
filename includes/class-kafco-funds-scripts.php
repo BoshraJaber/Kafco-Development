@@ -40,13 +40,10 @@ class Kafco_Scripts {
 	 public function kafco_front_scripts() {
 
 		wp_register_style('kafco-login-style', KAFCO_INC_URL . '/css/login-account.css');
-		wp_register_style('kafco-sidebar-style', KAFCO_INC_URL . '/css/SideNav.css');
-		if(is_page('customer-login') || is_page('contract-summary') || is_page('statement-account') || is_page('missing-fuel-ticket-request') || is_page('complaints') || is_page('status') || is_page('fuel-uplift-summary') || is_page('fuel-prices')){
-			wp_enqueue_style('kafco-login-style');
-			wp_enqueue_style('kafco-sidebar-style');
-		}
+		wp_register_style('kafco-sidebar-style', KAFCO_INC_URL . '/css/SideNav.css');	
+		wp_enqueue_style('kafco-login-style');
+		wp_enqueue_style('kafco-sidebar-style');
 		
-
 		//wp_register_script('arab-funds-public-script', ARAB_FUNDS_INC_URL . '/js/arab-custom-script.js',array('jquery'),rand());
         //wp_enqueue_script('arab-funds-public-script');
 
