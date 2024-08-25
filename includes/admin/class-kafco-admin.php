@@ -125,6 +125,32 @@ class Kafco_Admin {
 		//pll_register_string( 'privatesector', 'PRIVATE SECTOR', 'arab-funds', false );
 	}
 
+	/**
+	 * Admin Class
+	 *
+	 * Custom method to show customer id field in back-end of users level.
+	 *
+	 * @package Kafco
+	 * @since 1.0.0
+	*/
+
+    public function kafco_show_extra_fields( $user ) {
+
+		$user_id = $user->ID;
+		$customer_id = !empty( get_user_meta( $user_id , 'custom_user_id' , true)) ? get_user_meta( $user_id , 'custom_user_id' , true) : "";
+
+		?>
+		<h3><?php _e("Extra User Information", "blank"); ?></h3>
+		<table class="form-table">
+			<tr>
+				<th><label for="customerid"><?php _e("Customer Id"); ?></label></th>
+				<td>
+					<input type="text" name="customerid" id="customerid" value="<?php echo $customer_id; ?>" class="regular-text" disabled="disabled" />
+				</td>
+			</tr>
+		</table>
+		<?php
+	}
 
 	/**
 	 * Adding Hooks
@@ -134,6 +160,8 @@ class Kafco_Admin {
 	 */
 	function add_hooks(){
 		add_action('plugins_loaded', array($this,'kafco_load_all_translation_strings'));
+		add_action('show_user_profile', array($this,'kafco_show_extra_fields'));
+        add_action('edit_user_profile', array($this,'kafco_show_extra_fields'));
 	}
 }
 ?>

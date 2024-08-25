@@ -42,7 +42,9 @@
 }
 
 .login-info input[type="text"],
-.login-info input[type="password"] {
+.login-info input[type="password"],
+.login-info input[type="email"]
+ {
     border-radius: 10px;
     padding: 10px;
     min-height: 45px;

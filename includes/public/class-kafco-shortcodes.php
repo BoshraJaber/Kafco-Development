@@ -107,6 +107,103 @@ class Kafco_Shortcodes {
       return ob_get_clean();
 	}
 
+        /**
+	 * Shortcode displaying login form for customer login
+	 *
+	 * @package Kafco
+	 * @since 1.0.0
+	 */
+
+	function kapco_customer_registration_form() {
+        ob_start();
+  
+        $dashboard_url = get_the_permalink(pll_get_post(get_page_by_path( 'customer-login' )->ID));
+  
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register_form_submit'])) {
+        
+          $username = sanitize_text_field($_POST['user_login']);
+          $custom_user_id  = sanitize_text_field($_POST['user_id']);
+          $user_password  = sanitize_text_field($_POST['reg_pwd']);
+          $user_confirm_password = sanitize_text_field($_POST['reg_confirm_pwd']);
+          $user_email = sanitize_text_field($_POST['reg_email']);
+          $validation_flag = false;
+          if ( username_exists($username) ) {
+            $error_message = "Username already exists. Please choose a different username.";
+            $validation_flag = true;  
+          } else if ( email_exists($user_email) ) {
+            $error_message = "Email already exists. Please use a different email address.";
+            $validation_flag = true;
+          } else if ( email_exists($user_email) && username_exists($username) ) {
+            $error_message = "Username and Email both already exists.";
+            $validation_flag = true;
+          } elseif (strcmp($user_password, $user_confirm_password) !== 0 ) {
+            $error_message = "Passwords do not match. Please try again.";
+            $validation_flag = true;
+          }
+
+         // Create the user
+         if(!$validation_flag) {
+            $user_id = wp_create_user($username, $password, $user_email);
+            if (is_wp_error($user_id)) {
+               $error_message = "An error occurred: " . $user_id->get_error_message();
+            } else {
+               $user = new WP_User($user_id);
+               $user->set_role('subscriber');
+               update_user_meta($user_id, 'custom_user_id', $custom_user_id);
+               $error_message =  "User successfully registered.";
+               sleep(4);
+               wp_redirect($dashboard_url);
+           }
+         }
+      }    
+     if(!is_user_logged_in()) {
+        ?> 
+       <div class="page-wrapper">
+          <div class="login-sec">
+              <div class="login-image">
+                  <img src="<?php echo KAFCO_INC_URL . '/images/login-img.png' ?>">
+              </div>
+              <div class="login-info">
+                  <h4><?php echo kafco_plugin_str_display('Customer Registration'); ?></h4>
+                  <?php if(!empty($error_message)) { ?> 
+                      <p class="error"><?php echo $error_message; ?></p>
+                  <?php } ?>    
+                  <form id="customer-registration-form" method="post" action="">
+                      <div class="form-group">
+                          <label><?php echo kafco_plugin_str_display('Username'); ?></label>
+                          <input type="text" name="user_login" id="reg_username" value="" required>
+                      </div>
+                      <div class="form-group">
+                          <label><?php echo kafco_plugin_str_display('Customer Id'); ?></label>
+                          <input type="text" name="user_id" id="reg_userid" value="" required>
+                      </div>
+                      <div class="form-group">
+                          <label><?php echo kafco_plugin_str_display('Email'); ?></label>
+                          <input type="email" name="reg_email" id="reg_email" value="" required>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label><?php echo kafco_plugin_str_display('Password'); ?></label>   
+                          <input type="password" name="reg_pwd" id="reg_pass" required>
+                      </div>
+                      <div class="form-group">
+                          <label><?php echo kafco_plugin_str_display('Confirm Password'); ?></label>   
+                          <input type="password" name="reg_confirm_pwd" id="reg_confirm_password" required>
+                      </div>
+                      <div class="form-group">
+                          <!--<button type="button" class="btn-login">Login</button>-->
+                          <input type="submit" class="btn-login" name="register_form_submit" value="<?php echo kafco_plugin_str_display('Register'); ?>">
+                          <!--<input type="submit"/>-->
+                      </div>
+                  </form>    
+              </div>
+          </div>
+       </div>
+       <?php    
+          }
+        return ob_get_clean();
+      }
+
     /**
 	 * Shortcode displaying contract statement of the customer
 	 *
@@ -844,6 +941,7 @@ class Kafco_Shortcodes {
         add_shortcode('kafco_fuel_prices',array($this,'kapco_fuel_prices_details'));
         add_shortcode('kafco_fuel_status',array($this,'kapco_fuel_status_details'));
         add_shortcode('kapco_satisfactory_survey',array($this,'kapco_satisfactory_survey'));
+        add_shortcode('kafco_registration_form',array($this,'kapco_customer_registration_form'));
         
 	}
 }
