@@ -542,7 +542,30 @@ sidenav-sec {
     box-sizing: border-box;
 }
 
+.strength-bar {
+    width: 0;
+    height: 4px;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    margin-top: 5px;
+}
+.password-strength-text{
+    font-size: 12px;
+}
 
+.mfp-content {
+    padding: 20px;
+    background: #fff; /* White background for popup */
+    color: #333; /* Text color */
+    max-width: 600px; /* Max width for popup */
+    margin: 0 auto; /* Center align */
+    border-radius: 8px; /* Rounded corners */
+}
+
+/* Style for Close Button */
+.mfp-close {
+    color: #333; /* Close button color */
+}    
 
 @media(max-width: 992px) {
 

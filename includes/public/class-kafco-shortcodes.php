@@ -90,7 +90,7 @@ class Kafco_Shortcodes {
                     <div class="form-cb">
                         <!--<input type="checkbox" name="terms_agreed" id="terms_agreed" value="1" required>-->
                         <input type="checkbox" name="tc" id="tc">
-                        <label for="tc"> <?php echo kafco_plugin_str_display('I Accept the'); ?> <a href="#"><?php echo kafco_plugin_str_display('Terms of Use and Conditions'); ?></a> </label>
+                        <label for="tc"> <?php echo kafco_plugin_str_display('I Accept the'); ?> <a class="open-popup" data-popup-id="tc-login" href="#"><?php echo kafco_plugin_str_display('Terms of Use and Conditions'); ?></a> </label>
                     </div>
                 </form>    
             </div>
@@ -114,12 +114,12 @@ class Kafco_Shortcodes {
 	 * @since 1.0.0
 	 */
 
-	function kapco_customer_registration_form() {
+    public function kapco_customer_registration_form() {
         ob_start();
   
         $dashboard_url = get_the_permalink(pll_get_post(get_page_by_path( 'customer-login' )->ID));
   
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register_form_submit'])) {
+    /*if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register_form_submit'])) {
         
           $username = sanitize_text_field($_POST['user_login']);
           $custom_user_id  = sanitize_text_field($_POST['user_id']);
@@ -155,7 +155,7 @@ class Kafco_Shortcodes {
                wp_redirect($dashboard_url);
            }
          }
-      }    
+    }*/    
      if(!is_user_logged_in()) {
         ?> 
        <div class="page-wrapper">
@@ -165,30 +165,39 @@ class Kafco_Shortcodes {
               </div>
               <div class="login-info">
                   <h4><?php echo kafco_plugin_str_display('Customer Registration'); ?></h4>
-                  <?php if(!empty($error_message)) { ?> 
-                      <p class="error"><?php echo $error_message; ?></p>
-                  <?php } ?>    
+                  <p class="status-message"></p>    
                   <form id="customer-registration-form" method="post" action="">
                       <div class="form-group">
                           <label><?php echo kafco_plugin_str_display('Username'); ?></label>
-                          <input type="text" name="user_login" id="reg_username" value="" required>
+                          <input type="text" class="validate-field" name="user_reg" id="reg_username" value="" >
+                          <span class="error"></span>
                       </div>
                       <div class="form-group">
                           <label><?php echo kafco_plugin_str_display('Customer Id'); ?></label>
-                          <input type="text" name="user_id" id="reg_userid" value="" required>
+                          <input type="text" class="validate-field" name="user_id" id="reg_userid" value="">
+                          <span class="error"></span>
                       </div>
                       <div class="form-group">
                           <label><?php echo kafco_plugin_str_display('Email'); ?></label>
-                          <input type="email" name="reg_email" id="reg_email" value="" required>
+                          <input type="email" class="validate-field" name="reg_email" id="reg_email" value="">
+                          <span class="error"></span>
                       </div>
                       
                       <div class="form-group">
                           <label><?php echo kafco_plugin_str_display('Password'); ?></label>   
-                          <input type="password" name="reg_pwd" id="reg_pass" required>
-                      </div>
+                          <input type="password" class="validate-field" name="reg_pwd" id="reg_pass">
+                          <span class="error"></span>
+                          <div id="strength-bar" class="strength-bar"></div>
+                          <div class="strength-wrap">
+                           <span id="password-strength-text"></span>
+                          </div>
+                          
+                          <span class="password-policies">( 1 lowercase &amp; 1 uppercase , 1 number (0-9) and 1 Special Character (!@#$%^&*) ,  )</span>
+                      </div>      
                       <div class="form-group">
                           <label><?php echo kafco_plugin_str_display('Confirm Password'); ?></label>   
-                          <input type="password" name="reg_confirm_pwd" id="reg_confirm_password" required>
+                          <input type="password" class="validate-field"  name="reg_confirm_pwd" id="reg_confirm_password">
+                          <span class="error"></span>
                       </div>
                       <div class="form-group">
                           <!--<button type="button" class="btn-login">Login</button>-->
