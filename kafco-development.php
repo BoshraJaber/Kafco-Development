@@ -38,7 +38,12 @@ if(!defined('KAFCO_PREFIX')) {
 if(!defined('KAFCO_VAR_PREFIX')) {
   define('KAFCO_VAR_PREFIX', '_kafco_'); // Variable Prefix
 }
-
+if(!defined('KAFCO_GRECAPTCHA_SITE_KEY')) {
+  define('KAFCO_GRECAPTCHA_SITE_KEY', '6LfaczUqAAAAACwTbXyjsBV46phpHpCXV8XVwGIV'); // Variable Prefix
+}
+if(!defined('KAFCO_GRECAPTCHA_SECRET_KEY')) {
+  define('KAFCO_GRECAPTCHA_SECRET_KEY', '6LfaczUqAAAAAEXmc8NIfyDfC2y0MDNGXuc0WFTv'); // Variable Prefix
+}
 /**
  * Load Text Domain
  *

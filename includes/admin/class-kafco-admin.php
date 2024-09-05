@@ -153,6 +153,25 @@ class Kafco_Admin {
 	}
 
 	/**
+	 * Admin Class
+	 *
+	 * Custom code to disable admin bar if user logged-in of subscriber role
+	 *
+	 * @package Kafco
+	 * @since 1.0.0
+	*/
+
+	public function kafco_disable_admin_bar() {
+		
+		if (is_user_logged_in()) {
+			$user = wp_get_current_user();	
+			if (in_array('subscriber', $user->roles)) {		
+				show_admin_bar(false);
+			}
+		}
+	}
+
+	/**
 	 * Adding Hooks
 	 *
 	 * @package Kafco
@@ -162,6 +181,7 @@ class Kafco_Admin {
 		add_action('plugins_loaded', array($this,'kafco_load_all_translation_strings'));
 		add_action('show_user_profile', array($this,'kafco_show_extra_fields'));
         add_action('edit_user_profile', array($this,'kafco_show_extra_fields'));
+		add_action('after_setup_theme', array($this,'kafco_disable_admin_bar'));
 	}
 }
 ?>

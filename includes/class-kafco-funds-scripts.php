@@ -46,7 +46,10 @@ class Kafco_Scripts {
 		wp_enqueue_style('kafco-sidebar-style');
 
 
-		
+
+		if( is_page('sign-up') ) {
+			wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js', array(), null, true);
+		}	
 		wp_enqueue_script( 'magnific-script', KAFCO_INC_URL . '/js/magnific.min.js', array('jquery'), '1.1.0', true );
 		wp_register_script('kafco-public-script', KAFCO_INC_URL . '/js/custom-script.js',array('jquery'),'1.0.3');
         wp_enqueue_script('kafco-public-script');

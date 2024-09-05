@@ -19,53 +19,93 @@ function kapco_plugin_user_registration() {
     $status_message = "";
     $thankyou_redirect = get_the_permalink(pll_get_post(get_page_by_path( 'sign-up-success' )->ID));
 
-    if ( !empty( $_POST['username'] ) && !empty( $_POST['customer_id'] ) && !empty( $_POST['email'] ) && !empty( $_POST['password'] )  ) {
-          //Custom code to validate for duplicate user id
-          $user_query = new WP_User_Query( array( 'role' => 'Subscriber' ) );
-          if ( ! empty( $user_query->get_results() ) ) {
-            foreach ( $user_query->get_results() as $key => $user ) {
-              $available_id = get_user_meta( $user->data->ID , 'custom_user_id' , true );             
-              if( !empty( $available_id ) && $available_id === $_POST['customer_id'] ) {
-                $customer_flag = true;
-                break;
+
+    //$recaptcha_response = sanitize_text_field($_POST['recaptcha_response']);
+    $recaptcha_response = $_POST['recaptcha_response'];
+   // echo $recaptcha_response;
+    $secret_key = KAFCO_GRECAPTCHA_SECRET_KEY;
+    $recaptchaResponse = $_POST['recaptcha_response'];
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    $data = [
+        'secret' => $secret_key,
+        'response' => $recaptchaResponse
+    ];
+
+   
+    // Initialize CURL
+    $ch = curl_init($url);
+
+    // Configure CURL options
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+    // Execute CURL and get the response
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    // Decode the response
+    $responseData = json_decode($result);
+
+    
+
+    if (isset($_POST['recaptcha_response'])) {
+          if ($responseData->success) {
+            if ( !empty( $_POST['username'] ) && !empty( $_POST['customer_id'] ) && !empty( $_POST['email'] ) && !empty( $_POST['password'] ) ) {
+              //Custom code to validate for duplicate user id
+              $user_query = new WP_User_Query( array( 'role' => 'Subscriber' ) );
+              if ( ! empty( $user_query->get_results() ) ) {
+                foreach ( $user_query->get_results() as $key => $user ) {
+                  $available_id = get_user_meta( $user->data->ID , 'custom_user_id' , true )  ;             
+                  if( !empty( $available_id ) && $available_id === $_POST['customer_id'] ) {
+                    $customer_flag = true;
+                    break;
+                  }
+                
+                }
               }
-             
-            }
-          }
-
-          if ( email_exists($_POST['email']) && username_exists( $_POST['username'] ) ) {
-            $status_message = "Username and Email both already exists.";
-            $validation_flag = true;  
-            $registration_status = 3;
-          } else if ( email_exists($user_email) ) {
-            $status_message = "Email already exists. Please use a different email address.";
-            $validation_flag = true;
-            $registration_status = 3;
-          } else if ( username_exists($username) ) {
-            $status_message = "Username already exists. Please use a different username.";
-            $validation_flag = true;
-            $registration_status = 3;
-          } else if( $customer_flag ) {
-            $status_message = "Customer Id already in use. Please select another one.";
-            $validation_flag = true;
-            $registration_status = 3;
-          }
-
-         // Create the user
-         if(!$validation_flag) {
-            $user_id = wp_create_user($_POST['username'], $_POST['password'], $_POST['email']);
-            if (is_wp_error($user_id)) {
-                $status_message = "An error occurred: " . $user_id->get_error_message();
-                $registration_status = 2;
-            } else {
-               $user = new WP_User($user_id);
-               $user->set_role('subscriber');
-               update_user_meta($user_id, 'custom_user_id', $_POST['customer_id']);
-               $status_message =  "User successfully registered.";
-               $registration_status = 1;
+  
+              if ( email_exists($_POST['email']) && username_exists( $_POST['username'] ) ) {
+                $status_message = "Username and Email both already exists.";
+                $validation_flag = true;  
+                $registration_status = 3;
+              } else if ( email_exists($user_email) ) {
+                $status_message = "Email already exists. Please use a different email address.";
+                $validation_flag = true;
+                $registration_status = 3;
+              } else if ( username_exists($username) ) {
+                $status_message = "Username already exists. Please use a different username.";
+                $validation_flag = true;
+                $registration_status = 3;
+              } else if( $customer_flag ) {
+                $status_message = "Customer Id already in use. Please select another one.";
+                $validation_flag = true;
+                $registration_status = 3;
+              }
+  
+            // Create the user
+            if( !$validation_flag ) {
+                $user_id = wp_create_user($_POST['username'], $_POST['password'], $_POST['email']);
+                if (is_wp_error($user_id)) {
+                    $status_message = "An error occurred: " . $user_id->get_error_message();
+                    $registration_status = 2;
+                } else {
+                  $user = new WP_User($user_id);
+                  $user->set_role('subscriber');
+                  update_user_meta($user_id, 'custom_user_id', $_POST['customer_id']);
+                  $status_message =  "User successfully registered.";
+                  $registration_status = 1;
+              } 
            }
-         }
-    }
+          } else {
+              $status_message = "reCAPTCHA verification failed."; 
+              $registration_status = 2;      
+          }  
+    } else {
+      $status_message = "reCAPTCHA response missing."; 
+      $registration_status = 2;
+    }   
+
+    }  
 
     wp_send_json(array('msg' => $status_message, 'reg_status' => $registration_status, 'redirect' => $thankyou_redirect));
 

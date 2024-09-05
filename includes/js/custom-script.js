@@ -13,6 +13,7 @@ jQuery(document).ready(function() {
                 action: 'kapco_load_popup_content',
                 popup_id: popupId
             },
+
             success: function(response) {
                 // Open Magnific Popup with the response content
                 jQuery.magnificPopup.open({
@@ -40,9 +41,12 @@ jQuery(document).ready(function() {
         // Prevent default form submission
         e.preventDefault();
         var validation_status =  validateRegistrationFields();   
+        var recaptchaResponse = grecaptcha.getResponse();
         var password_strength =  getPasswordStrength( jQuery("#reg_pass").val() );
         if( validation_status && password_strength === 'strong' ) {
             var password_compare  =  comparePassword( jQuery("#reg_pass").val() , jQuery("#reg_confirm_password").val());
+            // Get the reCAPTCHA response token
+            var recaptchaResponse = grecaptcha.getResponse();
             if( password_compare ) {
                 jQuery.ajax({
                     type:"POST",
@@ -53,6 +57,7 @@ jQuery(document).ready(function() {
                       customer_id:jQuery("#reg_userid").val(),
                       email:jQuery("#reg_email").val(),
                       password:jQuery("#reg_pass").val(),
+                      recaptcha_response: recaptchaResponse
                     },
                     success : function(response) {
                         console.log(response);
@@ -127,6 +132,8 @@ jQuery(document).ready(function() {
         isValid = true;
         var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         var numberPattern = /^\d+$/;
+        var recaptchaResponse = grecaptcha.getResponse();
+
         jQuery('.validate-field').each(function() {
             jQuery(this).next('.error').text('');
             var input_value = jQuery(this).val().trim();
@@ -140,6 +147,12 @@ jQuery(document).ready(function() {
                 } 
             } 
         });     
+
+        if ( recaptchaResponse.length == 0 ) {
+            isValid = false;
+            jQuery(".g-recaptcha").next('.error').text('Please verify that you are not a robot.').show();
+        }
+
 
         /*if (!numberPattern.test(jQuery('#reg_userid').val()) && jQuery('#reg_userid').val() !== '') {  
                isValid = false;

@@ -201,6 +201,8 @@ class Kafco_Shortcodes {
                       </div>
                       <div class="form-group">
                           <!--<button type="button" class="btn-login">Login</button>-->
+                          <div class="g-recaptcha" data-sitekey="<?php echo KAFCO_GRECAPTCHA_SITE_KEY; ?>"></div>
+                          <span class="error"></span>
                           <input type="submit" class="btn-login" name="register_form_submit" value="<?php echo kafco_plugin_str_display('Register'); ?>">
                           <!--<input type="submit"/>-->
                       </div>
@@ -914,11 +916,304 @@ class Kafco_Shortcodes {
                                 $kafco_sidebar->kafco_common_sidebar();
                             } ?>
                         <div class="sidenav-content">
-                            <div class="table-title">
-                                 <h3>Satisfaction Survey</h3>
+                <div class="table-title">
+                    <h3>Satisfaction Survey</h3>
+                </div>
+                <div class="survey-cards">
+                    <a href="https://medevword.com/commercial-satisfaction-survey-fy-2024-25/" class="survey-card">
+                        <img src="<?php echo KAFCO_INC_URL . '/images/survey.png' ?>" alt="Commercial Satisfaction">
+                        <p>Commercial Satisfaction
+                            Survey FY-2024/25</p>
+                    </a>
+                    <a href="#" class="survey-card">
+                    <img src="<?php echo KAFCO_INC_URL . '/images/engineering.png' ?>" alt="Operational Satisfaction">
+                        <p>Operational Satisfaction
+                            Survey FY-2024/25</p>
+                    </a>
+                </div>
+            </div>  
+                </div>
+            </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    public function kapco_commercial_survey() {
+        ob_start();
+        $this->redirect_user_to_login();
+        ?>
+        <div class="page-wrapper">
+                <div class="sidenav-sec">
+                    <?php 
+                        include_once( KAFCO_INC_DIR.'/public/class-kafco-common-sidebar.php' );
+                            if (class_exists('Kafco_Sidebar')) {
+                                $kafco_sidebar = new Kafco_Sidebar();
+                                $kafco_sidebar->kafco_common_sidebar();
+                            } ?>
+                        <div class="sidenav-content">
+                        <div class="sidenav-content">
+                <div class="table-title">
+                    <h3>Commercial Satisfaction
+                        Survey FY-2024/25</h3>
+                </div>
+                <div class="survey-container">
+                    <p class="form-par">How satisfied are you with the following:</p>
+                    <div class="survey-form">
+                    
+                    <?php echo do_shortcode('[formidable id=5]') ?>
+                        <!-- <div class="form-header">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" required>
                             </div>
-                            <?php echo do_shortcode('[qsm quiz=1]') ?>
-                        </div>   
+                            <div class="form-group">
+                                <label>Designation</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-radio-container">
+                            <div>
+                                <p class="form-radio-number"> 1</p>
+                            </div>
+                            <p class="form-radio-question">Clarity and simplicity of our contract terms and conditions &
+                                contracting procedures</p>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="very-satisfied" name="satisfaction1" value="very-satisfied"
+                                        checked>
+                                    <label for="very-satisfied">Very Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="satisfied" name="satisfaction1" value="satisfied">
+                                    <label for="satisfied">Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="partially-satisfied" name="satisfaction1"
+                                        value="partially-satisfied">
+                                    <label for="partially-satisfied">Partially Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="unsatisfied" name="satisfaction1" value="unsatisfied">
+                                    <label for="unsatisfied">Unsatisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="neutral" name="satisfaction1" value="neutral">
+                                    <label for="neutral">Neutral</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-radio-container">
+                            <div>
+                                <p class="form-radio-number"> 2</p>
+                            </div>
+                            <p class="form-radio-question"> Timely notification of price changess</p>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="very-satisfied" name="satisfaction2" value="very-satisfied"
+                                        checked>
+                                    <label for="very-satisfied">Very Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="satisfied" name="satisfaction2" value="satisfied">
+                                    <label for="satisfied">Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="partially-satisfied" name="satisfaction2"
+                                        value="partially-satisfied">
+                                    <label for="partially-satisfied">Partially Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="unsatisfied" name="satisfaction2" value="unsatisfied">
+                                    <label for="unsatisfied">Unsatisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="neutral" name="satisfaction2" value="neutral">
+                                    <label for="neutral">Neutral</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-radio-container">
+                            <div>
+                                <p class="form-radio-number"> 3</p>
+                            </div>
+                            <p class="form-radio-question"> Timely receipt of our invoices and accuracy</p>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="very-satisfied" name="satisfaction3" value="very-satisfied"
+                                        checked>
+                                    <label for="very-satisfied">Very Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="satisfied" name="satisfaction3" value="satisfied">
+                                    <label for="satisfied">Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="partially-satisfied" name="satisfaction3"
+                                        value="partially-satisfied">
+                                    <label for="partially-satisfied">Partially Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="unsatisfied" name="satisfaction3" value="unsatisfied">
+                                    <label for="unsatisfied">Unsatisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="neutral" name="satisfaction3" value="neutral">
+                                    <label for="neutral">Neutral</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-radio-container">
+                            <div>
+                                <p class="form-radio-number"> 4</p>
+                            </div>
+                            <p class="form-radio-question"> Attentiveness to customer complaints</p>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="very-satisfied" name="satisfaction4" value="very-satisfied"
+                                        checked>
+                                    <label for="very-satisfied">Very Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="satisfied" name="satisfaction4" value="satisfied">
+                                    <label for="satisfied">Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="partially-satisfied" name="satisfaction4"
+                                        value="partially-satisfied">
+                                    <label for="partially-satisfied">Partially Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="unsatisfied" name="satisfaction4" value="unsatisfied">
+                                    <label for="unsatisfied">Unsatisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="neutral" name="satisfaction4" value="neutral">
+                                    <label for="neutral">Neutral</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-radio-container">
+                            <div>
+                                <p class="form-radio-number"> 5</p>
+                            </div>
+                            <p class="form-radio-question"> Effectiveness of the complaints follow-up</p>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="very-satisfied" name="satisfaction5" value="very-satisfied"
+                                        checked>
+                                    <label for="very-satisfied">Very Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="satisfied" name="satisfaction5" value="satisfied">
+                                    <label for="satisfied">Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="partially-satisfied" name="partially-satisfaction5"
+                                        value="partially-satisfied">
+                                    <label for="partially-satisfied">Partially Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="unsatisfied" name="satisfaction5" value="unsatisfied">
+                                    <label for="unsatisfied">Unsatisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="neutral" name="satisfaction5" value="neutral">
+                                    <label for="neutral">Neutral</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-radio-container">
+                            <div>
+                                <p class="form-radio-number"> 6</p>
+                            </div>
+                            <p class="form-radio-question"> Thinking specifically of KAFCO, how would you rate your
+                                overall experiance</p>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="very-satisfied" name="satisfaction6" value="very-satisfied"
+                                        checked>
+                                    <label for="very-satisfied">Very Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="satisfied" name="satisfaction6" value="satisfied">
+                                    <label for="satisfied">Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="partially-satisfied" name="satisfaction6"
+                                        value="partially-satisfied">
+                                    <label for="partially-satisfied">Partially Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="unsatisfied" name="satisfaction6" value="unsatisfied">
+                                    <label for="unsatisfied">Unsatisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="neutral" name="satisfaction6" value="neutral">
+                                    <label for="neutral">Neutral</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-radio-container">
+                            <div>
+                                <p class="form-radio-number"> 7</p>
+                            </div>
+                            <p class="form-radio-question"> Improvement Please provide any suggestion or recommendation
+                                to improve our fueling Operations</p>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="very-satisfied" name="satisfaction7" value="very-satisfied"
+                                        checked>
+                                    <label for="very-satisfied">Very Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="satisfied" name="satisfaction7" value="satisfied">
+                                    <label for="satisfied">Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="partially-satisfied" name="satisfaction7"
+                                        value="partially-satisfied">
+                                    <label for="partially-satisfied">Partially Satisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="unsatisfied" name="satisfaction7" value="unsatisfied">
+                                    <label for="unsatisfied">Unsatisfied</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="neutral" name="satisfaction7" value="neutral">
+                                    <label for="neutral">Neutral</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="textarea-container">
+                            <div class="form-group">
+                                <label>Improvement Please provide any suggestion or recommendation to improve our
+                                    Fueling Operations </label>
+                                <textarea class="form-control" rows="4"
+                                    placeholder="Any Comment or Suggestion"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-btns">
+
+                            <button type="button" class="btn btn-green submit-btn">Submit</button>
+                            <button type="button" class="btn btn-green reversed-btn">Reset</button>
+
+                        </div> -->
+                    </div>
+
+                </div>
+            </div>
+                
+            </div>  
                 </div>
             </div>
         <?php
@@ -950,6 +1245,7 @@ class Kafco_Shortcodes {
         add_shortcode('kafco_fuel_prices',array($this,'kapco_fuel_prices_details'));
         add_shortcode('kafco_fuel_status',array($this,'kapco_fuel_status_details'));
         add_shortcode('kapco_satisfactory_survey',array($this,'kapco_satisfactory_survey'));
+        add_shortcode('kapco_commercial_survey',array($this,'kapco_commercial_survey'));
         add_shortcode('kafco_registration_form',array($this,'kapco_customer_registration_form'));
         
 	}
