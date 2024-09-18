@@ -107,7 +107,7 @@ class Kafco_Shortcodes {
       return ob_get_clean();
 	}
 
-        /**
+    /**
 	 * Shortcode displaying login form for customer login
 	 *
 	 * @package Kafco
@@ -199,6 +199,7 @@ class Kafco_Shortcodes {
                           <input type="password" class="validate-field"  name="reg_confirm_pwd" id="reg_confirm_password">
                           <span class="error"></span>
                       </div>
+
                       <div class="form-group">
                           <!--<button type="button" class="btn-login">Login</button>-->
                           <div class="g-recaptcha" data-sitekey="<?php echo KAFCO_GRECAPTCHA_SITE_KEY; ?>"></div>
@@ -206,6 +207,7 @@ class Kafco_Shortcodes {
                           <input type="submit" class="btn-login" name="register_form_submit" value="<?php echo kafco_plugin_str_display('Register'); ?>">
                           <!--<input type="submit"/>-->
                       </div>
+                      <!--<a href="https://medevword.com/wp-login.php?action=lostpassword">Lost your password?</a>-->
                   </form>    
               </div>
           </div>
@@ -214,6 +216,28 @@ class Kafco_Shortcodes {
           }
         return ob_get_clean();
       }
+
+      
+    public function kapco_customer_forgot_password_form(){
+
+        ob_start();
+    ?>
+    <form name="lostpasswordform" id="lostpasswordform" action="<?php echo esc_url( network_site_url( 'wp-login.php?action=lostpassword', 'login_post' ) ); ?>" method="post">
+        <p class="custom-lost-password-text">Enter your email address to reset your password:</p>
+        <p>
+            <label for="user_login"><?php _e( 'Email Address' ); ?><br />
+            <input type="text" name="user_login" id="user_login" class="input" value="" size="20" /></label>
+        </p>
+        <?php do_action( 'lostpassword_form' ); ?>
+        <p class="submit">
+            <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Reset Password' ); ?>" />
+        </p>
+    </form>
+    <?php
+    return ob_get_clean();    
+
+    }
+
 
     /**
 	 * Shortcode displaying contract statement of the customer
@@ -670,49 +694,49 @@ class Kafco_Shortcodes {
                         } ?>
                     <div class="sidenav-content">
                         <div class="table-title">
-                            <h3>Fuel Uplift Summary</h3>
+                            <h3><?php echo kafco_plugin_str_display('Fuel Uplift Summary'); ?></h3>
                         </div>
                         <div class="table-filters">
                             <div class="form-group">
-                                <label>Date from</label>
+                                <label><?php echo kafco_plugin_str_display('Date from'); ?></label>
                                 <input type="date" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Date to</label>
+                                <label><?php echo kafco_plugin_str_display('Date to'); ?></label>
                                 <input type="date" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Currency</label>
+                                <label><?php echo kafco_plugin_str_display('Currency'); ?></label>
                                 <select class="form-control">
                                     <option></option>
                                     <option></option>
                                 </select>
                             </div>
-                            <button type="button" class="btn btn-green">Apply Filter</button>
-                            <button type="button" class="btn btn-cf"><img src="<?php echo KAFCO_INC_URL . '/images/undo-arrow.svg' ?>">Clear Filter</button>
+                            <button type="button" class="btn btn-green"><?php echo kafco_plugin_str_display('Apply Filter'); ?></button>
+                            <button type="button" class="btn btn-cf"><img src="<?php echo KAFCO_INC_URL . '/images/undo-arrow.svg' ?>"><?php echo kafco_plugin_str_display('Clear Filter'); ?></button>
                         </div>
                         <div class="table-info">
                             <div class="tbl-info-c">
                             <img src="<?php echo KAFCO_INC_URL . '/images/ti-1.svg' ?>">
-                                <p><label>Customer</label> Yousef Ali Syed</p>
+                                <p><label><?php echo kafco_plugin_str_display('Customer'); ?></label> Yousef Ali Syed</p>
                             </div>
                             <div class="tbl-info-c">
                                <img src="<?php echo KAFCO_INC_URL . '/images/ti-4.svg' ?>">
-                                <p><label>Statement Date from</label> 01/01/2023</p>
+                                <p><label><?php echo kafco_plugin_str_display('Statement Date from'); ?></label> 01/01/2023</p>
                             </div>
                             <div class="tbl-info-c">
                                 <img src="<?php echo KAFCO_INC_URL . '/images/ti-4.svg' ?>">
-                                <p><label>Statement From Until</label> 07/01/2023</p>
+                                <p><label><?php echo kafco_plugin_str_display('Statement From Until'); ?></label> 07/01/2023</p>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <table>
                                 <tr>
-                                    <th>Date of Uplift</th>
-                                    <th>Fuel Ticket No.</th>
-                                    <th>Quantity(Ltrs)</th>
-                                    <th>Flight#</th>
-                                    <th>Aircraft Reg.#</th>
+                                    <th><?php echo kafco_plugin_str_display('Date of Uplift'); ?></th>
+                                    <th><?php echo kafco_plugin_str_display('Fuel Ticket No.'); ?></th>
+                                    <th><?php echo kafco_plugin_str_display('Quantity(Ltrs)'); ?></th>
+                                    <th><?php echo kafco_plugin_str_display('Flight#'); ?></th>
+                                    <th><?php echo kafco_plugin_str_display('Aircraft Reg.#'); ?></th>
 
                                 </tr>
                                 <tr>
@@ -781,16 +805,16 @@ class Kafco_Shortcodes {
                             } ?>
                         <div class="sidenav-content">
                             <div class="table-title">
-                                <h3>Fuel Prices</h3>
+                                <h3><?php echo kafco_plugin_str_display('Fuel Prices'); ?></h3>
                             </div>
                             <div class="table-responsive">
                                 <table>
                                     <tr>
-                                        <th>Fuel Price Effective Date (dd/mm/yyyy)</th>
-                                        <th>Valid Until Date (dd/mm/yyyy)</th>
-                                        <th>Fils/Ltr</th>
-                                        <th>USC/USG</th>
-                                        <th>Exchange Rate</th>
+                                        <th><?php echo kafco_plugin_str_display('Fuel Price Effective Date (dd/mm/yyyy)'); ?></th>
+                                        <th><?php echo kafco_plugin_str_display('Valid Until Date (dd/mm/yyyy)'); ?></th>
+                                        <th><?php echo kafco_plugin_str_display('Fils/Ltr'); ?></th>
+                                        <th><?php echo kafco_plugin_str_display('USC/USG'); ?></th>
+                                        <th><?php echo kafco_plugin_str_display('Exchange Rate'); ?></th>
                                     </tr>
                                     <tr>
                                         <td>26-02-2023</td>
@@ -855,16 +879,16 @@ class Kafco_Shortcodes {
                             } ?>
                         <div class="sidenav-content">
                             <div class="table-title">
-                                 <h3>Status</h3>
+                                 <h3><?php echo kafco_plugin_str_display('Status'); ?></h3>
                             </div>
                             <div class="table-responsive">
                                 <table>
                                     <tr>
-                                        <th>Invoice #</th>
-                                        <th>Date of Issue</th>
-                                        <th>Due Date</th>
-                                        <th>Invoice Amount</th>
-                                        <th>Status</th>
+                                        <th><?php echo kafco_plugin_str_display('Invoice #'); ?></th>
+                                        <th><?php echo kafco_plugin_str_display('Date of Issue'); ?></th>
+                                        <th><?php echo kafco_plugin_str_display('Due Date'); ?></th>
+                                        <th><?php echo kafco_plugin_str_display('Invoice Amount'); ?></th>
+                                        <th><?php echo kafco_plugin_str_display('Status'); ?></th>
                                     </tr>
                                     <tr>
                                         <td>26-02-2023</td>
@@ -917,18 +941,16 @@ class Kafco_Shortcodes {
                             } ?>
                         <div class="sidenav-content">
                 <div class="table-title">
-                    <h3>Satisfaction Survey</h3>
+                    <h3><?php echo kafco_plugin_str_display('Satisfaction Survey'); ?></h3>
                 </div>
                 <div class="survey-cards">
                     <a href="https://medevword.com/commercial-satisfaction-survey-fy-2024-25/" class="survey-card">
                         <img src="<?php echo KAFCO_INC_URL . '/images/survey.png' ?>" alt="Commercial Satisfaction">
-                        <p>Commercial Satisfaction
-                            Survey FY-2024/25</p>
+                        <p><?php echo kafco_plugin_str_display('Commercial Satisfaction Survey'); ?> FY-2024/25</p>
                     </a>
                     <a href="#" class="survey-card">
                     <img src="<?php echo KAFCO_INC_URL . '/images/engineering.png' ?>" alt="Operational Satisfaction">
-                        <p>Operational Satisfaction
-                            Survey FY-2024/25</p>
+                        <p><?php echo kafco_plugin_str_display('Operational Satisfaction Survey'); ?> FY-2024/25</p>
                     </a>
                 </div>
             </div>  
@@ -959,8 +981,7 @@ class Kafco_Shortcodes {
                 <div class="survey-container">
                     <p class="form-par">How satisfied are you with the following:</p>
                     <div class="survey-form">
-                    
-                    <?php echo do_shortcode('[formidable id=5]') ?>
+                    <?php echo FrmFormsController::get_form_shortcode( array( 'id' => 5 ) ); ?>
                         <!-- <div class="form-header">
                             <div class="form-group">
                                 <label>Name</label>
@@ -1228,6 +1249,84 @@ class Kafco_Shortcodes {
         } 
     }
 
+    /** 
+* Redirects the user to the custom "Forgot your password?" page instead of 
+* wp-login.php?action=lostpassword. 
+*/
+public function redirect_to_custom_lostpassword() {
+    if ( 'GET' == $_SERVER['REQUEST_METHOD'] ) {
+        if ( is_user_logged_in() ) {
+            $this->redirect_logged_in_user();
+            exit;
+        }
+        wp_redirect( home_url( 'forgot-password' ) );
+        exit;
+    }
+}
+
+/** 
+* A shortcode for rendering the form used to initiate the password reset. 
+* 
+* @param array $attributes Shortcode attributes. 
+* @param string $content The text content for shortcode. Not used. 
+* 
+* @return string The shortcode output 
+*/
+public function render_password_lost_form( $attributes, $content = null ) {
+    // Parse shortcode attributes 
+    ob_start();
+    $default_attributes = array( 'show_title' => false );
+    $attributes = shortcode_atts( $default_attributes, $attributes );
+    if ( is_user_logged_in() ) {
+        return __( 'You are already signed in.', 'personalize-login' );
+    } else {?>
+        <div id="password-lost-form" class="widecolumn">
+    <?php if ( $attributes['show_title'] ) : ?>
+        <h3><?php _e( 'Forgot Your Password?', 'personalize-login' ); ?></h3>
+    <?php endif; ?>
+    <p>
+        <?php
+            _e(
+                "Enter your email address and we'll send you a link you can use to pick a new password.",
+                'personalize_login'
+            );
+        ?>
+    </p>
+    <form id="lostpasswordform" action="<?php echo wp_lostpassword_url(); ?>" method="post">
+        <p class="form-row">
+            <label for="user_login"><?php _e( 'Email', 'personalize-login' ); ?>
+            <input type="text" name="user_login" id="user_login">
+        </p>
+        <p class="lostpassword-submit">
+            <input type="submit" name="submit" class="lostpassword-button"
+                   value="<?php _e( 'Reset Password', 'personalize-login' ); ?>"/>
+        </p>
+    </form>
+</div>
+   <?php }
+   return ob_get_clean();
+}
+
+/** 
+* Initiates password reset. 
+*/
+public function do_password_lost() {
+    if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
+        $errors = retrieve_password();
+        if ( is_wp_error( $errors ) ) {
+            // Errors found 
+            $redirect_url = home_url( 'forgot-password' );
+            $redirect_url = add_query_arg( 'errors', join( ',', $errors->get_error_codes() ), $redirect_url );
+        } else {
+            // Email sent 
+            $redirect_url = home_url( 'customer-login' );
+            $redirect_url = add_query_arg( 'checkemail', 'confirm', $redirect_url );
+        }
+        wp_redirect( $redirect_url );
+        exit;
+    }
+}
+
 	/**
 	 * Adding Hooks
 	 *
@@ -1247,6 +1346,14 @@ class Kafco_Shortcodes {
         add_shortcode('kapco_satisfactory_survey',array($this,'kapco_satisfactory_survey'));
         add_shortcode('kapco_commercial_survey',array($this,'kapco_commercial_survey'));
         add_shortcode('kafco_registration_form',array($this,'kapco_customer_registration_form'));
+        //add_filter('lostpassword_form',array($this,'kapco_customer_forgot_password_form'));
+        add_action( 'login_form_lostpassword', array( $this, 'redirect_to_custom_lostpassword' ) );
+        add_shortcode( 'custom-password-lost-form', array( $this, 'render_password_lost_form' ) );
+        add_action( 'login_form_lostpassword', array( $this, 'do_password_lost' ) );
+   
+
+
+
         
 	}
 }

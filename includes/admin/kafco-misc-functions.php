@@ -149,3 +149,24 @@ function kapco_load_popup_content() {
 
 add_action( 'wp_ajax_kapco_load_popup_content', 'kapco_load_popup_content' );
 add_action( 'wp_ajax_nopriv_kapco_load_popup_content', 'kapco_load_popup_content' );
+
+
+/* Custom functionality to customize html of Forgot password page */
+function custom_lost_password_form() {
+  
+  ?>
+  <div class="notice notice-info message"><p>Please enter your username or email address. You will receive an email message with instructions on how to reset your password.</p></div>
+  <form name="lostpasswordform" id="lostpasswordform" action="https://medevword.com/wp-login.php?action=lostpassword" method="post">
+			<p>
+				<label for="user_login">Username or Email Address</label>
+				<input type="text" name="user_login" id="user_login" class="input" value="" size="20" autocapitalize="off" autocomplete="username" required="required">
+			</p>
+						<input type="hidden" name="redirect_to" value="">
+			<p class="submit">
+				<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="Get New Password">
+			</p>
+		</form>
+  <?php
+}
+
+//add_action('login_form_lostpassword', 'custom_lost_password_form');

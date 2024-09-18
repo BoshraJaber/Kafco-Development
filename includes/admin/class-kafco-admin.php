@@ -118,6 +118,26 @@ class Kafco_Admin {
 		pll_register_string( 'subject', 'Subject', 'kafco', false );
 		pll_register_string( 'salescomplaint', 'Sales related complaint', 'kafco', false );
 		pll_register_string( 'message', 'Message', 'kafco', false );
+		pll_register_string( 'invoiceamount', 'Invoice Amount', 'kafco', false );
+		pll_register_string( 'duedate', 'Due Date', 'kafco', false );
+		pll_register_string( 'dateofissue', 'Date of Issue', 'kafco', false );
+		pll_register_string( 'invoiceid', 'Invoice #', 'kafco', false );
+		pll_register_string( 'fuelupliftsummary', 'Fuel Uplift Summary', 'kafco', false );
+		pll_register_string( 'fuelticket', 'Fuel Ticket No.', 'kafco', false );
+		pll_register_string( 'qtyltrs', 'Quantity(Ltrs)', 'kafco', false );
+		pll_register_string( 'flight#', 'Flight#', 'kafco', false );
+		pll_register_string( 'aircraftreg#', 'Aircraft Reg.#', 'kafco', false );
+
+
+
+		pll_register_string( 'fuelpriceffdt', 'Fuel Price Effective Date (dd/mm/yyyy)', 'kafco', false );
+		pll_register_string( 'validuntdt', 'Valid Until Date (dd/mm/yyyy)', 'kafco', false );
+		pll_register_string( 'filsltr', 'Fils/Ltr', 'kafco', false );
+		pll_register_string( 'uscusg', 'USC/USG', 'kafco', false );
+		pll_register_string( 'exchangerate', 'Exchange Rate', 'kafco', false );
+		pll_register_string( 'operationalsurvey', 'Operational Satisfaction Survey', 'kafco', false );
+		pll_register_string( 'commercialsurvey', 'Commercial Satisfaction Survey', 'kafco', false );
+
 		
 		
 		
